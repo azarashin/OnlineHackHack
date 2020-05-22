@@ -102,3 +102,8 @@ dist
 
 # TernJS port file
 .tern-port
+*.csv
+*.pickle
+ProtopediaHack/idea_url_title_list.txt
+ProtopediaHack/idea_url_list.txt
+ProtopediaHack/ideas_body/
