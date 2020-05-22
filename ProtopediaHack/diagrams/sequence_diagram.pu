@@ -1,0 +1,79 @@
+@startuml
+
+header protopedia hack
+footer Page %page% of %lastpage%
+
+title 参加者の日々の作業
+
+participant "主催者" as OWNER
+participant "参加者" as PROTOTYPER
+
+participant "管理端末[Client PC]" as PC_OWNER
+participant "参加者端末[Client PC]" as PC_PROTOTYPER
+participant "Protopedia" as SERVER_PROTOPEDIA
+participant "AI Application" as AI_APP
+participant "Croller" as CROLLER
+participant "Local Storage" as STORAGE
+participant "DB Uploader" as DB_UPLOADER
+participant "Database Server" as DB_SERVER
+
+
+note over PC_OWNER : ブラウザで稼働する
+note over PC_PROTOTYPER : ブラウザで稼働する
+
+loop 作品の分だけ実施:
+  PROTOTYPER -> PC_PROTOTYPER : Protopedia に制作物レポートを追加
+  activate PC_PROTOTYPER
+    PC_PROTOTYPER -> SERVER_PROTOPEDIA : データを登録する
+    activate SERVER_PROTOPEDIA
+    deactivate SERVER_PROTOPEDIA
+    return
+  deactivate PC_PROTOTYPER
+end
+
+'newpage AI Application の定期動作
+activate AI_APP
+  AI_APP -> CROLLER : Croller を起動
+  activate CROLLER
+    loop キーワード候補の分だけ実施:
+      CROLLER -> SERVER_PROTOPEDIA : キーワード検索の結果を取得する
+      activate SERVER_PROTOPEDIA
+
+        return
+      deactivate SERVER_PROTOPEDIA
+      CROLLER -> STORAGE : 開発物のサイト一覧をストレージに保存する
+    end
+
+
+    loop キーワード検索の結果の分だけ実施:
+      CROLLER -> SERVER_PROTOPEDIA : 開発物のサイトの中身を取得する
+      activate SERVER_PROTOPEDIA
+
+        return
+      deactivate SERVER_PROTOPEDIA
+      CROLLER -> STORAGE : 開発物のサイトの中身をストレージに保存する
+    end
+  deactivate CROLLER
+
+  loop 開発物のサイト分だけ実施:
+    AI_APP -> STORAGE : 開発物のサイトの中身を取得
+    AI_APP -> AI_APP : Title, Prototyper, Role, Tag, Material を抽出
+    activate AI_APP
+    deactivate AI_APP
+    
+    AI_APP -> DB_UPLOADER : Title, Prototyper, Role, Tag, Material
+    activate DB_UPLOADER
+      DB_UPLOADER -> DB_SERVER : Title, Prototyper, Role, Tag, Material を登録
+    deactivate DB_UPLOADER
+  end
+deactivate AI_APP
+
+'newpage ハッカソン実施前の作業
+
+activate PC_OWNER
+    loop 登録する参加者の分だけ実施:
+      OWNER -> PC_OWNER : conpass ID とprotopedia ID とを関連付ける
+    end
+deactivate PC_OWNER
+
+@enduml

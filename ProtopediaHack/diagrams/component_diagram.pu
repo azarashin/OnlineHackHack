@@ -1,0 +1,66 @@
+@startuml
+title <size:18>コンポーネント図</size>
+' Author: Shinsuke Ogata
+
+
+package "Protopedia[Website]" <<Website>> {
+    component "HTTP Server" as HTTP_PROTOPEDIA
+    interface "HttpSocket Port" as HTTP_SOCKET_PROTOPEDIA
+} 
+
+package "Superset Server[BI tool]" <<BITool>> {
+    component "Superset Server App" as APP_SUPERSET
+    interface "Database Socket(Database)" as SOCKET_DB_BI
+}
+
+package "Cloud Database Server[Database]" <<Database>> {
+    component "Database Server" as DB
+    interface "Database Socket(Database)" as SOCKET_DB
+}
+
+package "Protopedia Hack Server[AI]" <<AI>> {
+    component "Web Application" as WEB_SERVER
+    component "AI Application" as AI_SERVER
+    component "Croller" as AI_CROLLER
+    component "DB Uploader" as AI_DB_UPLOADER
+    component "Local Storage" as AI_STORAGE
+    interface "Database Socket(Database)" as SOCKET_DB_AI
+    interface "HttpRequest" as HTTP_AI
+    interface "HttpSocket port" as HTTP_SOCKET_AI
+}
+
+package "Client PC[Browser]" <<Browser>> {
+    component "Web Browser" as WEB_BROWSER
+    interface "HttpRequest" as HTTP_BROWSER
+}
+
+
+Actor Player as PLAYER
+Actor Owner as OWNER
+
+' コンポーネント同士の関連
+AI_SERVER -- WEB_SERVER
+AI_SERVER -- AI_STORAGE
+AI_CROLLER -- AI_STORAGE
+AI_DB_UPLOADER -- AI_SERVER
+PLAYER -- WEB_BROWSER
+OWNER -- WEB_BROWSER
+
+' コンポーネントとインターフェースの関連付け
+
+HTTP_PROTOPEDIA -- HTTP_SOCKET_PROTOPEDIA
+APP_SUPERSET -- SOCKET_DB_BI
+DB -- SOCKET_DB
+AI_DB_UPLOADER -- SOCKET_DB_AI
+AI_CROLLER -- HTTP_AI
+WEB_BROWSER -- HTTP_BROWSER
+AI_SERVER -- HTTP_SOCKET_AI
+
+' インターフェース同士の関連付け
+
+HTTP_SOCKET_PROTOPEDIA -- HTTP_AI
+SOCKET_DB_AI -- SOCKET_DB
+SOCKET_DB_BI -- SOCKET_DB
+HTTP_BROWSER -- HTTP_SOCKET_AI
+
+@enduml
