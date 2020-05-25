@@ -1,0 +1,1112 @@
+[
+    {
+        "id": "81ba743c.489e68",
+        "type": "tab",
+        "label": "OnlineHackHack",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "58412259.ea4d1c",
+        "type": "http in",
+        "z": "81ba743c.489e68",
+        "name": "",
+        "url": "/post_idea",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 220,
+        "y": 140,
+        "wires": [
+            [
+                "ebc01f3.83ba0e",
+                "df63ae56.560d2"
+            ]
+        ]
+    },
+    {
+        "id": "df63ae56.560d2",
+        "type": "debug",
+        "z": "81ba743c.489e68",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 650,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "2896ef60.3faaf",
+        "type": "http response",
+        "z": "81ba743c.489e68",
+        "name": "",
+        "statusCode": "",
+        "headers": {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Headers": "X-Requested-With, Origin, X-Csrftoken, Content-Type, Accept",
+            "Access-Control-Allow-Methods": "POST, GET, OPTIONS"
+        },
+        "x": 800,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "ebc01f3.83ba0e",
+        "type": "function",
+        "z": "81ba743c.489e68",
+        "name": "データ取得",
+        "func": "msg.url = msg.payload.url;\nmsg.user_id = msg.payload.user_id;\nmsg.user_role = msg.payload.rols;\nmsg.describe = msg.payload.describe;\nmsg.tags = msg.payload.tags; \nmsg.title = msg.payload.title;\nif(!msg.title) {\n    msg.title = 'TITLE';\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 420,
+        "y": 140,
+        "wires": [
+            [
+                "2896ef60.3faaf",
+                "26c83560.ea978a",
+                "36807739.0872f8"
+            ]
+        ]
+    },
+    {
+        "id": "8a9b3c5b.029a2",
+        "type": "http in",
+        "z": "81ba743c.489e68",
+        "name": "",
+        "url": "/show_idea",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 200,
+        "y": 460,
+        "wires": [
+            [
+                "be1e3ae6.446018",
+                "66ebda03.69b614"
+            ]
+        ]
+    },
+    {
+        "id": "564faa50.f2d904",
+        "type": "inject",
+        "z": "81ba743c.489e68",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 220,
+        "y": 360,
+        "wires": [
+            [
+                "46e2c8ae.14b718"
+            ]
+        ]
+    },
+    {
+        "id": "9bab2eae.6c2ac",
+        "type": "template",
+        "z": "81ba743c.489e68",
+        "name": "html",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<html>\n<head>\n    <title>Online Hack Hack</title>\n    <link rel=\"stylesheet\" href=\"https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css\">\n    <!-- BootstrapのCSS読み込み -->\n    <link href=\"https://pit-creation.com/bootstrap/css/bootstrap.min.css\" rel=\"stylesheet\">\n    <!-- <link rel=\"stylesheet\" href=\"https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css\"> -->\n    <!-- jQuery読み込み -->\n    <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js\"></script>\n    <!-- BootstrapのJS読み込み -->\n    <script src=\"https://pit-creation.com/bootstrap/js/bootstrap.min.js\"></script>\n    \n    <script>\n  function sendData(url) {\n      alert(`session={{{session}}}&url=${url}`);\n    const XHR = new XMLHttpRequest();\n\n    // データが正常に送信された場合に行うことを定義します\n    XHR.addEventListener(\"load\", function(event) {\n      alert(event.target.responseText);\n    });\n\n    // エラーが発生した場合に行うことを定義します\n    XHR.addEventListener(\"error\", function(event) {\n      alert('Oups! Something goes wrong.');\n    });\n\n    XHR.open(\"POST\", \"https://pit-creation.com/OnlineHackHack_z9eNYhrdTGvBdYsAkPrdU8Wd/vote\");\n\n    XHR.send(`session={{{session}}}&url=${url}`)\n    \n    return false;\n  }\n\n    </script>\n    \n    <style>\n        {{{css.cssfile}}}\n    </style>\n\n</head>\n<body>\n\n   <a id=\"skippy\" class=\"sr-only sr-only-focusable\" href=\"#content\">\n  <div class=\"container\">\n    <span class=\"skiplink-text\">Skip to main content</span>\n  </div>\n</a>\n\n\n\n    <header>\n  <div class=\"collapse bg-dark\" id=\"navbarHeader\">\n    <div class=\"container\">\n      <div class=\"row\">\n        <div class=\"col-sm-8 col-md-7 py-4\">\n          <h4 class=\"text-white\">このサイトについて</h4>\n          <p class=\"text-muted\">今後ハッカソンはオンラインが標準になってくるはず。東京も大阪も広島も、ひょっとすると国境さえ飛び越えて共に開発する日がやってくるかも。そんなときのために支援ツールを開発してみました。</p>\n        </div>\n        <div class=\"col-sm-4 offset-md-1 py-4\">\n          <h4 class=\"text-white\">Contact</h4>\n          <ul class=\"list-unstyled\">\n            <li><a href=\"#\" class=\"text-white\">Shinsuke Ogata</a></li>\n            <li><a href=\"#\" class=\"text-white\">Yuta Matsunaga</a></li>\n          </ul>\n        </div>\n      </div>\n    </div>\n  </div>\n  <div class=\"navbar navbar-dark bg-dark shadow-sm\">\n    <div class=\"container d-flex justify-content-between\">\n      <a href=\"#\" class=\"navbar-brand d-flex align-items-center\">\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"mr-2\"><path d=\"M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z\"></path><circle cx=\"12\" cy=\"13\" r=\"4\"></circle></svg>\n        <strong>Online Hack Hack</strong>\n      </a>\n      <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarHeader\" aria-controls=\"navbarHeader\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\n        <span class=\"navbar-toggler-icon\"></span>\n      </button>\n    </div>\n  </div>\n</header>\n\n\n\n\n\n\n\n<main role=\"main\">\n\n  <section class=\"jumbotron text-center\">\n    <div class=\"container\">\n      <h1 class=\"jumbotron-heading\">Ideas</h1>\n      <p class=\"lead\">Are there any cool idea for you and us?</p>\n      <!--\n      <p>\n        <a href=\"#\" class=\"btn btn-primary my-2\">Main call to action</a>\n        <a href=\"#\" class=\"btn btn-secondary my-2\">Secondary action</a>\n      </p>\n      -->\n    </div>\n  </section>\n\n  <div class=\"album py-5 bg-light\">\n    <div class=\"container\">\n\n      <div class=\"row\">\n\n\n{{#payload}}\n        <div class=\"col-md-4\">\n          <div class=\"card mb-4 shadow-sm\">\n            <img class=\"card-img-top\" src=\"{{idea_url}}\" alt=\"idea image\">\n            <div class=\"card-body\">\n              <h2 class=\"card-text\">{{{title}}}</h2>\n              <p class=\"card-text\">★: {{{count}}}</p>\n              <p class=\"card-text\">{{describe_data}}</p>\n              <div class=\"d-flex justify-content-between align-items-center\">\n                <div class=\"btn-group\">\n                    <!--\n                  <button type=\"submit\" form=\"myForm\" onclick=\"submitdata.submit.value='{{idea_url}}'\" class=\"btn btn-sm btn-outline-secondary\">Like</button>\n                  -->\n                  <button onclick=\"location.href='https://pit-creation.com/OnlineHackHack_z9eNYhrdTGvBdYsAkPrdU8Wd/vote?session={{{session}}}&uuid={{{uuid}}}'\" class=\"btn btn-sm btn-outline-secondary\">Like</button>\n                </div>\n                <small class=\"text-muted\">tags: {{{tag}}}</small>\n                <small class=\"text-muted\">owner: {{user_id}}</small>\n              </div>\n            </div>\n          </div>\n        </div>\n{{/payload}}\n\n        \n      </div>\n    </div>\n    \n    <form name=\"submitdata\" id=\"myForm\" onSubmit=\"return sendData(submitdata.submit.value)\" class=\"form-horizontal\">\n    </form>\n    \n  </div>\n\n</main>\n\n<footer class=\"text-muted\">\n  <div class=\"container\">\n    <p class=\"float-right\">\n      <a href=\"#\">Back to top</a>\n    </p>\n    <p>New to Bootstrap? <a href=\"../../\">Visit the homepage</a> or read our <a href=\"../../getting-started/\">getting started guide</a>.</p>\n  </div>\n</footer>\n\n\n\n\n\n\n\n\n</body>\n</html>\n",
+        "output": "str",
+        "x": 1290,
+        "y": 460,
+        "wires": [
+            [
+                "9714c68d.4838a8"
+            ]
+        ]
+    },
+    {
+        "id": "5c56047b.28e4fc",
+        "type": "debug",
+        "z": "81ba743c.489e68",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 1500,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "9714c68d.4838a8",
+        "type": "http response",
+        "z": "81ba743c.489e68",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 1540,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "fde909a2.4932d8",
+        "type": "template",
+        "z": "81ba743c.489e68",
+        "name": "css",
+        "field": "css.cssfile",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": ":root {\n  --jumbotron-padding-y: 3rem;\n}\n\n.jumbotron {\n  padding-top: var(--jumbotron-padding-y);\n  padding-bottom: var(--jumbotron-padding-y);\n  margin-bottom: 0;\n  background-color: #555;\n}\n@media (min-width: 768px) {\n  .jumbotron {\n    padding-top: calc(var(--jumbotron-padding-y) * 2);\n    padding-bottom: calc(var(--jumbotron-padding-y) * 2);\n  }\n}\n\n.card-body {\n  color:gray; font-size:small;\n}\n\n.jumbotron p:last-child {\n  margin-bottom: 0;\n}\n\n.jumbotron-heading {\n  font-weight: 300;\n}\n\n.jumbotron .container {\n  max-width: 40rem;\n}\n\nfooter {\n  padding-top: 3rem;\n  padding-bottom: 3rem;\n}\n\nfooter p {\n  margin-bottom: .25rem;\n}",
+        "output": "str",
+        "x": 1110,
+        "y": 460,
+        "wires": [
+            [
+                "9bab2eae.6c2ac"
+            ]
+        ]
+    },
+    {
+        "id": "26c83560.ea978a",
+        "type": "function",
+        "z": "81ba743c.489e68",
+        "name": "アイデア登録",
+        "func": "var describe = msg.describe; \nif(!describe) {\n    describe = \"\"; \n}\n\nvar tags = msg.tags.join(','); \n\nmsg.topic = `REPLACE INTO IdeaInfo values ('${msg.title}', '${msg.url}', '${msg.user_id}', '${describe}', '${tags}', UUID());`;\n\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 600,
+        "y": 220,
+        "wires": [
+            [
+                "72ab1278.22452c"
+            ]
+        ]
+    },
+    {
+        "id": "72ab1278.22452c",
+        "type": "mysql",
+        "z": "81ba743c.489e68",
+        "mydb": "ac384e4a.fef26",
+        "name": "",
+        "x": 840,
+        "y": 220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "46e2c8ae.14b718",
+        "type": "function",
+        "z": "81ba743c.489e68",
+        "name": "アイデア情報リクエスト",
+        "func": "msg.topic = `SELECT IdeaInfo.uuid as uuid, title, idea_url, describe_data, IdeaInfo.user_id, tag, count(*) as count from IdeaInfo inner join LikeList on IdeaInfo.uuid=LikeList.uuid group by LikeList.uuid, title, idea_url, IdeaInfo.user_id, describe_data, tag, title;`;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 470,
+        "y": 460,
+        "wires": [
+            [
+                "dd2129b7.68d558"
+            ]
+        ]
+    },
+    {
+        "id": "dd2129b7.68d558",
+        "type": "mysql",
+        "z": "81ba743c.489e68",
+        "mydb": "ac384e4a.fef26",
+        "name": "",
+        "x": 700,
+        "y": 460,
+        "wires": [
+            [
+                "e2a81c89.09b68",
+                "5c56047b.28e4fc"
+            ]
+        ]
+    },
+    {
+        "id": "36807739.0872f8",
+        "type": "function",
+        "z": "81ba743c.489e68",
+        "name": "ユーザ登録",
+        "func": "var roles = msg.user_role.join(','); \n\nmsg.topic = `REPLACE INTO UserInfo values ('${msg.user_id}', '${roles}');`;\n\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 590,
+        "y": 280,
+        "wires": [
+            [
+                "470e7f4e.3d645"
+            ]
+        ]
+    },
+    {
+        "id": "470e7f4e.3d645",
+        "type": "mysql",
+        "z": "81ba743c.489e68",
+        "mydb": "ac384e4a.fef26",
+        "name": "",
+        "x": 840,
+        "y": 280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1d9f0f45.4b2771",
+        "type": "e-mail",
+        "z": "81ba743c.489e68",
+        "server": "smtp.gmail.com",
+        "port": "465",
+        "secure": true,
+        "name": "",
+        "dname": "",
+        "x": 810,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "b608db8.1944a28",
+        "type": "inject",
+        "z": "81ba743c.489e68",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 310,
+        "y": 920,
+        "wires": [
+            [
+                "5424b6bc.100808"
+            ]
+        ]
+    },
+    {
+        "id": "5424b6bc.100808",
+        "type": "function",
+        "z": "81ba743c.489e68",
+        "name": "メール送信",
+        "func": "msg.topic = \"Online Hack Hack からのお知らせ\";\nmsg.to = msg.email;\n\nvar addr_root = `https://pit-creation.com/OnlineHackHack_z9eNYhrdTGvBdYsAkPrdU8Wd`;\nvar addr = `${addr_root}/show_idea?session=${msg.session}`;\n\nmsg.payload = \"投票者登録ありがとうございます。\\n\\n\";\nmsg.payload += \"以下のリンクからみんなのアイデアの確認やコメント・応募をお願いします\\n\\n\";\nmsg.payload += `${addr}\\n\\n`;\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 650,
+        "y": 840,
+        "wires": [
+            [
+                "1d9f0f45.4b2771"
+            ]
+        ]
+    },
+    {
+        "id": "c9df4bff.44f948",
+        "type": "template",
+        "z": "81ba743c.489e68",
+        "name": "html",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<html>\n<head>\n    <title>Online Hack Hack</title>\n    <link rel=\"stylesheet\" href=\"https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css\">\n    <!-- BootstrapのCSS読み込み -->\n    <link href=\"https://pit-creation.com/bootstrap/css/bootstrap.min.css\" rel=\"stylesheet\">\n    <!-- <link rel=\"stylesheet\" href=\"https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css\"> -->\n    <!-- jQuery読み込み -->\n    <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js\"></script>\n    <!-- BootstrapのJS読み込み -->\n    <script src=\"https://pit-creation.com/bootstrap/js/bootstrap.min.js\"></script>\n    \n    <style>\n        {{{css.cssfile}}}\n    </style>\n\n</head>\n<body>\n\n   <a id=\"skippy\" class=\"sr-only sr-only-focusable\" href=\"#content\">\n  <div class=\"container\">\n    <span class=\"skiplink-text\">Skip to main content</span>\n  </div>\n</a>\n\n\n\n    <header>\n  <div class=\"collapse bg-dark\" id=\"navbarHeader\">\n    <div class=\"container\">\n      <div class=\"row\">\n        <div class=\"col-sm-8 col-md-7 py-4\">\n          <h4 class=\"text-white\">このサイトについて</h4>\n          <p class=\"text-muted\">今後ハッカソンはオンラインが標準になってくるはず。東京も大阪も広島も、ひょっとすると国境さえ飛び越えて共に開発する日がやってくるかも。そんなときのために支援ツールを開発してみました。</p>\n        </div>\n        <div class=\"col-sm-4 offset-md-1 py-4\">\n          <h4 class=\"text-white\">Contact</h4>\n          <ul class=\"list-unstyled\">\n            <li><a href=\"#\" class=\"text-white\">Shinsuke Ogata</a></li>\n            <li><a href=\"#\" class=\"text-white\">Yuta Matsunaga</a></li>\n          </ul>\n        </div>\n      </div>\n    </div>\n  </div>\n  <div class=\"navbar navbar-dark bg-dark shadow-sm\">\n    <div class=\"container d-flex justify-content-between\">\n      <a href=\"#\" class=\"navbar-brand d-flex align-items-center\">\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"mr-2\"><path d=\"M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z\"></path><circle cx=\"12\" cy=\"13\" r=\"4\"></circle></svg>\n        <strong>Online Hack Hack</strong>\n      </a>\n      <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarHeader\" aria-controls=\"navbarHeader\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\n        <span class=\"navbar-toggler-icon\"></span>\n      </button>\n    </div>\n  </div>\n</header>\n\n\n\n<main role=\"main\">\n\n\n\n  <div id=\"page\">\n    <div class=\"container\">\n      <h1>Regist to Vote!</h1>\n      \n      <div class=\"row\">\n        <div class=\"col-sm-9\">\n            \n          <form method=\"POST\" action=\"https://pit-creation.com/OnlineHackHack_z9eNYhrdTGvBdYsAkPrdU8Wd/request_vote\" class=\"form-horizontal\">\n            <div class=\"form-group\">\n              <label for=\"input-name\" class=\"col-sm-2 control-label\">Your name or HN</label>\n              <div class=\"col-sm-10\">\n                <input type=\"text\" class=\"form-control\" name=\"name\" id=\"name\" placeholder=\"name\" required=\"required\">\n              </div>\n            </div>\n            <div class=\"form-group\">\n              <label for=\"input-mail\" class=\"col-sm-2 control-label\">Email</label>\n              <div class=\"col-sm-10\">\n                <input type=\"email\" class=\"form-control\" name=\"email\" id=\"email\" placeholder=\"Email\" required=\"required\">\n              </div>\n            </div>\n            <div class=\"form-group\">\n              <div class=\"col-sm-offset-2 col-sm-10\">\n                <button type=\"submit\" class=\"btn btn-default\">Submit</button>\n              </div>\n            </div>\n          </form>\n          \n        </div>\n      </div>\n\n    </div><!-- /container -->\n  </div><!-- /page -->\n\n\n\n\n\n\n\n\n</main>\n\n<footer class=\"text-muted\">\n  <div class=\"container\">\n    <p class=\"float-right\">\n      <a href=\"#\">Back to top</a>\n    </p>\n    <p>New to Bootstrap? <a href=\"../../\">Visit the homepage</a> or read our <a href=\"../../getting-started/\">getting started guide</a>.</p>\n  </div>\n</footer>\n\n\n\n\n\n\n\n\n</body>\n</html>\n",
+        "output": "str",
+        "x": 370,
+        "y": 620,
+        "wires": [
+            [
+                "1aec64c9.96fb6b"
+            ]
+        ]
+    },
+    {
+        "id": "e9fd3f4f.933",
+        "type": "http in",
+        "z": "81ba743c.489e68",
+        "name": "",
+        "url": "/go_to_vote",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 200,
+        "y": 620,
+        "wires": [
+            [
+                "c9df4bff.44f948"
+            ]
+        ]
+    },
+    {
+        "id": "1aec64c9.96fb6b",
+        "type": "http response",
+        "z": "81ba743c.489e68",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 540,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "2d417d8e.25ebf2",
+        "type": "http in",
+        "z": "81ba743c.489e68",
+        "name": "",
+        "url": "/request_vote",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 190,
+        "y": 700,
+        "wires": [
+            [
+                "5c04cd22.ca2b84",
+                "88409ccb.29cde"
+            ]
+        ]
+    },
+    {
+        "id": "50c64816.f8f118",
+        "type": "http response",
+        "z": "81ba743c.489e68",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 590,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "be1e3ae6.446018",
+        "type": "debug",
+        "z": "81ba743c.489e68",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 390,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "5c04cd22.ca2b84",
+        "type": "template",
+        "z": "81ba743c.489e68",
+        "name": "html",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<html>\n<head>\n    <title>Online Hack Hack</title>\n    <link rel=\"stylesheet\" href=\"https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css\">\n    <!-- BootstrapのCSS読み込み -->\n    <link href=\"https://pit-creation.com/bootstrap/css/bootstrap.min.css\" rel=\"stylesheet\">\n    <!-- <link rel=\"stylesheet\" href=\"https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css\"> -->\n    <!-- jQuery読み込み -->\n    <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js\"></script>\n    <!-- BootstrapのJS読み込み -->\n    <script src=\"https://pit-creation.com/bootstrap/js/bootstrap.min.js\"></script>\n    \n    <style>\n        {{{css.cssfile}}}\n    </style>\n\n</head>\n<body>\n\n   <a id=\"skippy\" class=\"sr-only sr-only-focusable\" href=\"#content\">\n  <div class=\"container\">\n    <span class=\"skiplink-text\">Skip to main content</span>\n  </div>\n</a>\n\n\n\n    <header>\n  <div class=\"collapse bg-dark\" id=\"navbarHeader\">\n    <div class=\"container\">\n      <div class=\"row\">\n        <div class=\"col-sm-8 col-md-7 py-4\">\n          <h4 class=\"text-white\">このサイトについて</h4>\n          <p class=\"text-muted\">今後ハッカソンはオンラインが標準になってくるはず。東京も大阪も広島も、ひょっとすると国境さえ飛び越えて共に開発する日がやってくるかも。そんなときのために支援ツールを開発してみました。</p>\n        </div>\n        <div class=\"col-sm-4 offset-md-1 py-4\">\n          <h4 class=\"text-white\">Contact</h4>\n          <ul class=\"list-unstyled\">\n            <li><a href=\"#\" class=\"text-white\">Shinsuke Ogata</a></li>\n            <li><a href=\"#\" class=\"text-white\">Yuta Matsunaga</a></li>\n          </ul>\n        </div>\n      </div>\n    </div>\n  </div>\n  <div class=\"navbar navbar-dark bg-dark shadow-sm\">\n    <div class=\"container d-flex justify-content-between\">\n      <a href=\"#\" class=\"navbar-brand d-flex align-items-center\">\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"mr-2\"><path d=\"M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z\"></path><circle cx=\"12\" cy=\"13\" r=\"4\"></circle></svg>\n        <strong>Online Hack Hack</strong>\n      </a>\n      <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarHeader\" aria-controls=\"navbarHeader\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\n        <span class=\"navbar-toggler-icon\"></span>\n      </button>\n    </div>\n  </div>\n</header>\n\n\n\n<main role=\"main\">\n\n{{#payload}}\n\n  <section class=\"jumbotron text-center\">\n    <div class=\"container\">\n      <h1 class=\"jumbotron-heading\">Let's vote!</h1>\n      <p class=\"lead text-muted\">{{name}}さん宛てに投票用の案内メールを送りました！</p>\n      <!--\n      <p>\n        <a href=\"#\" class=\"btn btn-primary my-2\">Main call to action</a>\n        <a href=\"#\" class=\"btn btn-secondary my-2\">Secondary action</a>\n      </p>\n      -->\n    </div>\n  </section>\n{{/payload}}\n\n\n\n\n\n\n\n</main>\n\n<footer class=\"text-muted\">\n  <div class=\"container\">\n    <p class=\"float-right\">\n      <a href=\"#\">Back to top</a>\n    </p>\n    <p>New to Bootstrap? <a href=\"../../\">Visit the homepage</a> or read our <a href=\"../../getting-started/\">getting started guide</a>.</p>\n  </div>\n</footer>\n\n\n\n\n\n\n\n\n</body>\n</html>\n",
+        "output": "str",
+        "x": 410,
+        "y": 700,
+        "wires": [
+            [
+                "50c64816.f8f118"
+            ]
+        ]
+    },
+    {
+        "id": "88409ccb.29cde",
+        "type": "function",
+        "z": "81ba743c.489e68",
+        "name": "セッション生成",
+        "func": "var today = new Date();\nvar stoday = `${today.getFullYear()}/${today.getMonth()+1}/${today.getDate()} ${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`;\nvar S=\"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789\"\nvar N=64;\nmsg.session = Array.from(Array(N)).map(()=>S[Math.floor(Math.random()*S.length)]).join('');\nmsg.email = msg.payload.email;\n\nmsg.topic = `REPLACE INTO Session values('${msg.session}', '${msg.payload.email}', '${msg.payload.name}', '${stoday}')`\n\nmsg.cookies = { };\nmsg.cookies[\"access_token\"] = msg.session;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 440,
+        "y": 760,
+        "wires": [
+            [
+                "70058898.470d98",
+                "5424b6bc.100808"
+            ]
+        ]
+    },
+    {
+        "id": "9741a947.2d8648",
+        "type": "inject",
+        "z": "81ba743c.489e68",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 220,
+        "y": 840,
+        "wires": [
+            [
+                "88409ccb.29cde"
+            ]
+        ]
+    },
+    {
+        "id": "70058898.470d98",
+        "type": "mysql",
+        "z": "81ba743c.489e68",
+        "mydb": "ac384e4a.fef26",
+        "name": "",
+        "x": 680,
+        "y": 760,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c12fd892.2800d8",
+        "type": "http in",
+        "z": "81ba743c.489e68",
+        "name": "",
+        "url": "/vote",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 157,
+        "y": 1028,
+        "wires": [
+            [
+                "137736c.47af7c9",
+                "11ab406f.060f4"
+            ]
+        ]
+    },
+    {
+        "id": "137736c.47af7c9",
+        "type": "debug",
+        "z": "81ba743c.489e68",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 370,
+        "y": 1140,
+        "wires": []
+    },
+    {
+        "id": "6f3d91c0.84187",
+        "type": "function",
+        "z": "81ba743c.489e68",
+        "name": "LIKEリスト取得",
+        "func": "msg.topic = `SELECT user_id, uuid, DATE_FORMAT(reg_time, '%Y/%m/%d %H:%i:%s') as reg_time from LikeList where user_id='${msg.user_name}';`; \nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 760,
+        "y": 1180,
+        "wires": [
+            [
+                "4cfd5bb1.13ef24"
+            ]
+        ]
+    },
+    {
+        "id": "859f111e.40afb",
+        "type": "inject",
+        "z": "81ba743c.489e68",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 180,
+        "y": 980,
+        "wires": [
+            [
+                "9ba44cb5.337e3"
+            ]
+        ]
+    },
+    {
+        "id": "4cfd5bb1.13ef24",
+        "type": "mysql",
+        "z": "81ba743c.489e68",
+        "mydb": "ac384e4a.fef26",
+        "name": "",
+        "x": 1000,
+        "y": 1180,
+        "wires": [
+            [
+                "feca9d94.b8006"
+            ]
+        ]
+    },
+    {
+        "id": "feca9d94.b8006",
+        "type": "function",
+        "z": "81ba743c.489e68",
+        "name": "LIKEカウントチェック",
+        "func": "var max_vote = 2;\n\nvar dts = []; \nmsg.has_voted = false;\nmsg.over_vote = false;\n\nfor(var i=0;i<msg.payload.length;i++) {\n    var user_id = msg.payload[i].user_id;\n    var uuid = msg.payload[i].uuid;\n    var reg_time = msg.payload[i].reg_time;\n    dts.push(new Date(reg_time)); \n    if(user_id == msg.user_name && uuid == msg.uuid) {\n        msg.has_voted = true;\n        return msg;\n    }\n}\n\ndts.sort(function(a,b){\n        if( a < b ) return -1;\n        if( a > b ) return 1;\n        return 0;\n});\n\nmsg.dts = dts;\n\nmsg.topic = null;\n\nif(dts.length >= max_vote) {\n    dt = dts[dts.length - max_vote]; \n    var sdt = `${dt.getFullYear()}/${dt.getMonth()+1}/${dt.getDate()} ${dt.getHours()}:${dt.getMinutes()}:${dt.getSeconds()}`;\n    msg.topic = `DELETE from LikeList where reg_time <= '${sdt}'`;\n    msg.over_vote = true;\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 780,
+        "y": 1260,
+        "wires": [
+            [
+                "75236276.4455ac",
+                "3e5ff90c.ac0ed6"
+            ]
+        ]
+    },
+    {
+        "id": "11ab406f.060f4",
+        "type": "function",
+        "z": "81ba743c.489e68",
+        "name": "パラメータ保持",
+        "func": "msg.session = msg.payload.session;\nmsg.uuid = msg.payload.uuid;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 410,
+        "y": 1060,
+        "wires": [
+            [
+                "9cb75672.36d538"
+            ]
+        ]
+    },
+    {
+        "id": "9cb75672.36d538",
+        "type": "function",
+        "z": "81ba743c.489e68",
+        "name": "セッション情報取得",
+        "func": "msg.topic = `SELECT * from Session where session='${msg.session}';`\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 640,
+        "y": 1060,
+        "wires": [
+            [
+                "fda3aa64.63c998",
+                "61fe41ac.2518a"
+            ]
+        ]
+    },
+    {
+        "id": "fda3aa64.63c998",
+        "type": "mysql",
+        "z": "81ba743c.489e68",
+        "mydb": "ac384e4a.fef26",
+        "name": "",
+        "x": 880,
+        "y": 1060,
+        "wires": [
+            [
+                "3e9504aa.1eadbc",
+                "a56166af.c09778"
+            ]
+        ]
+    },
+    {
+        "id": "9ba44cb5.337e3",
+        "type": "function",
+        "z": "81ba743c.489e68",
+        "name": "",
+        "func": "msg.session = 'zinjqhFalHi3PPCCuexKHIgiIMMscn5pvugLD9Ult36hhP9ACHMZWMaHqGZZocrr';\nmsg.uuid = '659d7363-9d2e-11ea-8c9c-9ca3ba01fe45';\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 370,
+        "y": 980,
+        "wires": [
+            [
+                "9cb75672.36d538"
+            ]
+        ]
+    },
+    {
+        "id": "61fe41ac.2518a",
+        "type": "debug",
+        "z": "81ba743c.489e68",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "topic",
+        "x": 870,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "3e9504aa.1eadbc",
+        "type": "function",
+        "z": "81ba743c.489e68",
+        "name": "セッションチェック",
+        "func": "// エラーチェックが今はザル・・・\n\nmsg.user_name = msg.payload[0].user_name;\n\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1160,
+        "y": 1060,
+        "wires": [
+            [
+                "6f3d91c0.84187"
+            ]
+        ]
+    },
+    {
+        "id": "243a8be9.2f02d4",
+        "type": "mysql",
+        "z": "81ba743c.489e68",
+        "mydb": "ac384e4a.fef26",
+        "name": "",
+        "x": 1560,
+        "y": 1260,
+        "wires": [
+            [
+                "f1e46a9.8b18d98"
+            ]
+        ]
+    },
+    {
+        "id": "f1e46a9.8b18d98",
+        "type": "function",
+        "z": "81ba743c.489e68",
+        "name": "投票",
+        "func": "var today = new Date();\nvar stoday = `${today.getFullYear()}/${today.getMonth()+1}/${today.getDate()} ${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`;\n\nmsg.topic = `INSERT INTO LikeList values('${msg.user_name}', '${msg.uuid}', '${stoday}');`;\n\nmsg.res_message = \"投票ありがとうございました！\";\nif(msg.over_vote) {\n    msg.res_message = \"投票数の上限を超えていたので、古い投票を削除しました\";\n}\n\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1230,
+        "y": 1340,
+        "wires": [
+            [
+                "39993878.912b48"
+            ]
+        ]
+    },
+    {
+        "id": "39993878.912b48",
+        "type": "mysql",
+        "z": "81ba743c.489e68",
+        "mydb": "ac384e4a.fef26",
+        "name": "",
+        "x": 1500,
+        "y": 1340,
+        "wires": [
+            [
+                "c6e3daba.e8e3e8"
+            ]
+        ]
+    },
+    {
+        "id": "36f7c5a8.7a9cea",
+        "type": "switch",
+        "z": "81ba743c.489e68",
+        "name": "投票数を超えていないか？",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "nnull"
+            },
+            {
+                "t": "null"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1280,
+        "y": 1260,
+        "wires": [
+            [
+                "243a8be9.2f02d4"
+            ],
+            [
+                "f1e46a9.8b18d98"
+            ]
+        ]
+    },
+    {
+        "id": "75236276.4455ac",
+        "type": "switch",
+        "z": "81ba743c.489e68",
+        "name": "投票済みか？",
+        "property": "has_voted",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "false"
+            },
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1030,
+        "y": 1260,
+        "wires": [
+            [
+                "36f7c5a8.7a9cea"
+            ],
+            [
+                "c6e3daba.e8e3e8"
+            ]
+        ]
+    },
+    {
+        "id": "dd2ec95b.ab2f08",
+        "type": "debug",
+        "z": "81ba743c.489e68",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 1810,
+        "y": 1440,
+        "wires": []
+    },
+    {
+        "id": "c6e3daba.e8e3e8",
+        "type": "function",
+        "z": "81ba743c.489e68",
+        "name": "投票結果",
+        "func": "msg.topic = `SELECT * FROM LikeList inner join IdeaInfo on IdeaInfo.uuid=LikeList.uuid where IdeaInfo.uuid='${msg.uuid}' ;`;\n\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1250,
+        "y": 1420,
+        "wires": [
+            [
+                "5a6cd3ae.edf52c"
+            ]
+        ]
+    },
+    {
+        "id": "5a6cd3ae.edf52c",
+        "type": "mysql",
+        "z": "81ba743c.489e68",
+        "mydb": "ac384e4a.fef26",
+        "name": "",
+        "x": 1500,
+        "y": 1420,
+        "wires": [
+            [
+                "dd2ec95b.ab2f08",
+                "73bd56ce.42d1c8"
+            ]
+        ]
+    },
+    {
+        "id": "bac29798.8c1ea8",
+        "type": "debug",
+        "z": "81ba743c.489e68",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 1430,
+        "y": 1640,
+        "wires": []
+    },
+    {
+        "id": "3e5ff90c.ac0ed6",
+        "type": "debug",
+        "z": "81ba743c.489e68",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 870,
+        "y": 1480,
+        "wires": []
+    },
+    {
+        "id": "97767dbf.7cc2f",
+        "type": "template",
+        "z": "81ba743c.489e68",
+        "name": "html",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<html>\n<head>\n    <title>Online Hack Hack</title>\n    <link rel=\"stylesheet\" href=\"https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css\">\n    <!-- BootstrapのCSS読み込み -->\n    <link href=\"https://pit-creation.com/bootstrap/css/bootstrap.min.css\" rel=\"stylesheet\">\n    <!-- <link rel=\"stylesheet\" href=\"https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css\"> -->\n    <!-- jQuery読み込み -->\n    <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js\"></script>\n    <!-- BootstrapのJS読み込み -->\n    <script src=\"https://pit-creation.com/bootstrap/js/bootstrap.min.js\"></script>\n    \n    <script>\n  function sendData(url) {\n      alert(`session={{{session}}}&url=${url}`);\n    const XHR = new XMLHttpRequest();\n\n    // データが正常に送信された場合に行うことを定義します\n    XHR.addEventListener(\"load\", function(event) {\n      alert(event.target.responseText);\n    });\n\n    // エラーが発生した場合に行うことを定義します\n    XHR.addEventListener(\"error\", function(event) {\n      alert('Oups! Something goes wrong.');\n    });\n\n    XHR.open(\"POST\", \"https://pit-creation.com/OnlineHackHack_z9eNYhrdTGvBdYsAkPrdU8Wd/vote\");\n\n    XHR.send(`session={{{session}}}&url=${url}`)\n    \n    return false;\n  }\n\n    </script>\n    \n    <style>\n        {{{css.cssfile}}}\n    </style>\n\n</head>\n<body>\n\n   <a id=\"skippy\" class=\"sr-only sr-only-focusable\" href=\"#content\">\n  <div class=\"container\">\n    <span class=\"skiplink-text\">Skip to main content</span>\n  </div>\n</a>\n\n\n\n    <header>\n  <div class=\"collapse bg-dark\" id=\"navbarHeader\">\n    <div class=\"container\">\n      <div class=\"row\">\n        <div class=\"col-sm-8 col-md-7 py-4\">\n          <h4 class=\"text-white\">このサイトについて</h4>\n          <p class=\"text-muted\">今後ハッカソンはオンラインが標準になってくるはず。東京も大阪も広島も、ひょっとすると国境さえ飛び越えて共に開発する日がやってくるかも。そんなときのために支援ツールを開発してみました。</p>\n        </div>\n        <div class=\"col-sm-4 offset-md-1 py-4\">\n          <h4 class=\"text-white\">Contact</h4>\n          <ul class=\"list-unstyled\">\n            <li><a href=\"#\" class=\"text-white\">Shinsuke Ogata</a></li>\n            <li><a href=\"#\" class=\"text-white\">Yuta Matsunaga</a></li>\n          </ul>\n        </div>\n      </div>\n    </div>\n  </div>\n  <div class=\"navbar navbar-dark bg-dark shadow-sm\">\n    <div class=\"container d-flex justify-content-between\">\n      <a href=\"#\" class=\"navbar-brand d-flex align-items-center\">\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"mr-2\"><path d=\"M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z\"></path><circle cx=\"12\" cy=\"13\" r=\"4\"></circle></svg>\n        <strong>Online Hack Hack</strong>\n      </a>\n      <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarHeader\" aria-controls=\"navbarHeader\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\n        <span class=\"navbar-toggler-icon\"></span>\n      </button>\n    </div>\n  </div>\n</header>\n\n\n\n\n\n\n\n<main role=\"main\">\n\n  <section class=\"jumbotron text-center\">\n    <div class=\"container\">\n      <h1 class=\"jumbotron-heading\">Ideas</h1>\n      <div class=\"card-body\">\n        <p class=\"lead \">{{{res_message}}}</p>\n      </div>\n      <!--\n      <p>\n        <a href=\"#\" class=\"btn btn-primary my-2\">Main call to action</a>\n        <a href=\"#\" class=\"btn btn-secondary my-2\">Secondary action</a>\n      </p>\n      -->\n    </div>\n  </section>\n\n  <div class=\"album py-5 bg-light\">\n    <div class=\"container\">\n\n      <div class=\"row\">\n\n\n        <div class=\"col-md-4\">\n          <div class=\"card mb-4 shadow-sm\">\n            <img class=\"card-img-top\" src=\"{{{idea_url}}}\" alt=\"idea image\">\n            <div class=\"card-body\">\n              <h2 class=\"card-text\">{{{title}}}</h2>\n              <p class=\"card-text\">{{{star}}}</p>\n              <p class=\"card-text\">{{{describe_data}}}</p>\n              <div class=\"d-flex justify-content-between align-items-center\">\n                <small class=\"text-muted\">tags: {{{tags}}}</small>\n                <small class=\"text-muted\">owner: {{{user_name}}}</small>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        \n      </div>\n    </div>\n    \n    <form name=\"submitdata\" id=\"myForm\" onSubmit=\"return sendData(submitdata.submit.value)\" class=\"form-horizontal\">\n    </form>\n    \n  </div>\n\n</main>\n\n<footer class=\"text-muted\">\n  <div class=\"container\">\n    <p class=\"float-right\">\n      <a href=\"#\">Back to top</a>\n    </p>\n    <p>New to Bootstrap? <a href=\"../../\">Visit the homepage</a> or read our <a href=\"../../getting-started/\">getting started guide</a>.</p>\n  </div>\n</footer>\n\n\n\n\n\n\n\n\n</body>\n</html>\n",
+        "output": "str",
+        "x": 1630,
+        "y": 1500,
+        "wires": [
+            [
+                "5a9c8a46.a35c84"
+            ]
+        ]
+    },
+    {
+        "id": "73bd56ce.42d1c8",
+        "type": "function",
+        "z": "81ba743c.489e68",
+        "name": "星を付与",
+        "func": "\nmsg.star = `★  ${msg.payload.length}`\n\n\nmsg.title = msg.payload[0].title;\nmsg.idea_url = msg.payload[0].idea_url;\nmsg.describe_data = msg.payload[0].describe_data;\nmsg.tags = msg.payload[0].tag;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1240,
+        "y": 1500,
+        "wires": [
+            [
+                "ec9cad1a.34e21",
+                "bac29798.8c1ea8"
+            ]
+        ]
+    },
+    {
+        "id": "5a9c8a46.a35c84",
+        "type": "http response",
+        "z": "81ba743c.489e68",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 1830,
+        "y": 1520,
+        "wires": []
+    },
+    {
+        "id": "ec9cad1a.34e21",
+        "type": "template",
+        "z": "81ba743c.489e68",
+        "name": "css",
+        "field": "css.cssfile",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": ":root {\n  --jumbotron-padding-y: 3rem;\n}\n\n.jumbotron {\n  padding-top: var(--jumbotron-padding-y);\n  padding-bottom: var(--jumbotron-padding-y);\n  margin-bottom: 0;\n  background-color: #555;\n}\n@media (min-width: 768px) {\n  .jumbotron {\n    padding-top: calc(var(--jumbotron-padding-y) * 2);\n    padding-bottom: calc(var(--jumbotron-padding-y) * 2);\n  }\n}\n\n.card-body {\n  color:gray; font-size:small;\n}\n\n.jumbotron p:last-child {\n  margin-bottom: 0;\n}\n\n.jumbotron-heading {\n  font-weight: 300;\n}\n\n.jumbotron .container {\n  max-width: 40rem;\n}\n\nfooter {\n  padding-top: 3rem;\n  padding-bottom: 3rem;\n}\n\nfooter p {\n  margin-bottom: .25rem;\n}",
+        "output": "str",
+        "x": 1430,
+        "y": 1500,
+        "wires": [
+            [
+                "97767dbf.7cc2f"
+            ]
+        ]
+    },
+    {
+        "id": "5d3f1319.7d02cc",
+        "type": "template",
+        "z": "81ba743c.489e68",
+        "name": "html.",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<html>\n<head>\n    <title>Online Hack Hack</title>\n    <link rel=\"stylesheet\" href=\"https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css\">\n    <!-- BootstrapのCSS読み込み -->\n    <link href=\"https://pit-creation.com/bootstrap/css/bootstrap.min.css\" rel=\"stylesheet\">\n    <!-- <link rel=\"stylesheet\" href=\"https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css\"> -->\n    <!-- jQuery読み込み -->\n    <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js\"></script>\n    <!-- BootstrapのJS読み込み -->\n    <script src=\"https://pit-creation.com/bootstrap/js/bootstrap.min.js\"></script>\n    \n    <style>\n        {{{css.cssfile}}}\n    </style>\n\n</head>\n<body>\n\n   <a id=\"skippy\" class=\"sr-only sr-only-focusable\" href=\"#content\">\n  <div class=\"container\">\n    <span class=\"skiplink-text\">Skip to main content</span>\n  </div>\n</a>\n\n\n\n    <header>\n  <div class=\"collapse bg-dark\" id=\"navbarHeader\">\n    <div class=\"container\">\n      <div class=\"row\">\n        <div class=\"col-sm-8 col-md-7 py-4\">\n          <h4 class=\"text-white\">このサイトについて</h4>\n          <p class=\"text-muted\">今後ハッカソンはオンラインが標準になってくるはず。東京も大阪も広島も、ひょっとすると国境さえ飛び越えて共に開発する日がやってくるかも。そんなときのために支援ツールを開発してみました。</p>\n        </div>\n        <div class=\"col-sm-4 offset-md-1 py-4\">\n          <h4 class=\"text-white\">Contact</h4>\n          <ul class=\"list-unstyled\">\n            <li><a href=\"#\" class=\"text-white\">Shinsuke Ogata</a></li>\n            <li><a href=\"#\" class=\"text-white\">Yuta Matsunaga</a></li>\n          </ul>\n        </div>\n      </div>\n    </div>\n  </div>\n  <div class=\"navbar navbar-dark bg-dark shadow-sm\">\n    <div class=\"container d-flex justify-content-between\">\n      <a href=\"#\" class=\"navbar-brand d-flex align-items-center\">\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"mr-2\"><path d=\"M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z\"></path><circle cx=\"12\" cy=\"13\" r=\"4\"></circle></svg>\n        <strong>Online Hack Hack</strong>\n      </a>\n      <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarHeader\" aria-controls=\"navbarHeader\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\n        <span class=\"navbar-toggler-icon\"></span>\n      </button>\n    </div>\n  </div>\n</header>\n\n\n\n\n\n\n<div class=\"pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center\">\n  <h1 class=\"display-4\">Hack new idea!</h1>\n  <p class=\"lead\">ハッカソンへようこそ。</p>\n</div>\n\n<div class=\"container\">\n  <div class=\"card-deck mb-3 text-center\">\n    <div class=\"card mb-4 shadow-sm\">\n      <div class=\"card-header\">\n        <h3 class=\"my-0 font-weight-normal\">アイデアを投稿する</h3>\n      </div>\n      <div class=\"card-body\">\n        <h2 class=\"card-title pricing-card-title\"><small class=\"text-muted\"><p>以下のものを準備してアイデアを</p><p>投稿してください</p></small></h2>\n        <ul class=\"list-unstyled mt-3 mb-4\">\n          <li>タイトル</li>\n          <li>説明が書かれた画像１枚</li>\n          <li>アイデアのキーワード</li>\n          <li>情熱</li>\n        </ul>\n        <button type=\"button\" class=\"btn btn-lg btn-block btn-primary\" onclick=\"location.href='https://online-hack-hack-ui.now.sh/form'\">投稿する</button>\n      </div>\n    </div>\n    <div class=\"card mb-4 shadow-sm\">\n      <div class=\"card-header\">\n        <h4 class=\"my-0 font-weight-normal\">閲覧する</h4>\n      </div>\n      <div class=\"card-body\">\n        <h2 class=\"card-title pricing-card-title\"><small class=\"text-muted\"><p>お気に入りのアイデアを</p><p>発掘してください<p></small></h2>\n        <ul class=\"list-unstyled mt-3 mb-4\">\n          <li>アイデアは随時更新されます</li>\n          <li>お気に入りのアイデアにコメントをしましょう</li>\n          <li>.</li>\n          <li>.</li>\n        </ul>\n        <button type=\"button\" class=\"btn btn-lg btn-block btn-primary\" onclick=\"location.href='https://online-hack-hack-ui.now.sh/list'\">閲覧する</button>\n      </div>\n    </div>\n    <div class=\"card mb-4 shadow-sm\">\n      <div class=\"card-header\">\n        <h4 class=\"my-0 font-weight-normal\">投票する</h4>\n      </div>\n      <div class=\"card-body\">\n        <h2 class=\"card-title pricing-card-title\"><small class=\"text-muted\"><p>お気に入りのアイデアは</p><p>見つかりましたか？<p></small></h2>\n        <ul class=\"list-unstyled mt-3 mb-4\">\n          <li>投票は一人２票まで</li>\n          <li>メールアドレスを入力して投票者登録しよう</li>\n          <li>.</li>\n          <li>.</li>\n        </ul>\n        <button type=\"button\" class=\"btn btn-lg btn-block btn-primary\" onclick=\"location.href='https://pit-creation.com/OnlineHackHack_z9eNYhrdTGvBdYsAkPrdU8Wd/go_to_vote'\">投票する</button>\n      </div>\n    </div>\n  </div>\n\n\n<footer class=\"text-muted\">\n  <div class=\"container\">\n    <p class=\"float-right\">\n      <a href=\"#\">Back to top</a>\n    </p>\n    <p>New to Bootstrap? <a href=\"../../\">Visit the homepage</a> or read our <a href=\"../../getting-started/\">getting started guide</a>.</p>\n  </div>\n</footer>\n\n\n\n\n\n\n\n\n</body>\n</html>\n",
+        "output": "str",
+        "x": 470,
+        "y": 1720,
+        "wires": [
+            [
+                "ddb29f07.bd479"
+            ]
+        ]
+    },
+    {
+        "id": "764ecfc9.f6f8a",
+        "type": "http in",
+        "z": "81ba743c.489e68",
+        "name": "",
+        "url": "/idea_list",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 150,
+        "y": 1600,
+        "wires": [
+            [
+                "17949358.82649d"
+            ]
+        ]
+    },
+    {
+        "id": "17949358.82649d",
+        "type": "function",
+        "z": "81ba743c.489e68",
+        "name": "データ取得",
+        "func": "//msg.topic = \"SELECT IdeaInfo.uuid as uuid, title, idea_url, describe_data, IdeaInfo.user_id, tag, count(*) as count from IdeaInfo inner join LikeList on IdeaInfo.uuid=LikeList.uuid group by LikeList.uuid, title, idea_url, IdeaInfo.user_id, describe_data, tag;\";\nmsg.topic = \"SELECT IdeaInfo.uuid as uuid, title, idea_url, describe_data, IdeaInfo.user_id, tag from IdeaInfo;\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 330,
+        "y": 1600,
+        "wires": [
+            [
+                "298248f5.7eec38"
+            ]
+        ]
+    },
+    {
+        "id": "298248f5.7eec38",
+        "type": "mysql",
+        "z": "81ba743c.489e68",
+        "mydb": "ac384e4a.fef26",
+        "name": "",
+        "x": 540,
+        "y": 1600,
+        "wires": [
+            [
+                "9347dc14.2483a"
+            ]
+        ]
+    },
+    {
+        "id": "9347dc14.2483a",
+        "type": "http response",
+        "z": "81ba743c.489e68",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 760,
+        "y": 1600,
+        "wires": []
+    },
+    {
+        "id": "10696cc8.f49533",
+        "type": "http in",
+        "z": "81ba743c.489e68",
+        "name": "",
+        "url": "/index",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 140,
+        "y": 1720,
+        "wires": [
+            [
+                "e3594590.1d5048"
+            ]
+        ]
+    },
+    {
+        "id": "ddb29f07.bd479",
+        "type": "http response",
+        "z": "81ba743c.489e68",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 630,
+        "y": 1720,
+        "wires": []
+    },
+    {
+        "id": "e3594590.1d5048",
+        "type": "template",
+        "z": "81ba743c.489e68",
+        "name": "css",
+        "field": "css.cssfile",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": ":root {\n  --jumbotron-padding-y: 3rem;\n}\n\n.jumbotron {\n  padding-top: var(--jumbotron-padding-y);\n  padding-bottom: var(--jumbotron-padding-y);\n  margin-bottom: 0;\n  background-color: #555;\n}\n@media (min-width: 768px) {\n  .jumbotron {\n    padding-top: calc(var(--jumbotron-padding-y) * 2);\n    padding-bottom: calc(var(--jumbotron-padding-y) * 2);\n  }\n}\n\n.my-0 {\n  color:gray; font-size:xx-large;\n}\n\n.card-body {\n  color:gray; font-size:small;\n}\n\n.jumbotron p:last-child {\n  margin-bottom: 0;\n}\n\n.jumbotron-heading {\n  font-weight: 300;\n}\n\n.jumbotron .container {\n  max-width: 40rem;\n}\n\nfooter {\n  padding-top: 3rem;\n  padding-bottom: 3rem;\n}\n\nfooter p {\n  margin-bottom: .25rem;\n}",
+        "output": "str",
+        "x": 310,
+        "y": 1720,
+        "wires": [
+            [
+                "5d3f1319.7d02cc"
+            ]
+        ]
+    },
+    {
+        "id": "66ebda03.69b614",
+        "type": "function",
+        "z": "81ba743c.489e68",
+        "name": "アイデア情報リクエスト",
+        "func": "msg.topic = `SELECT IdeaInfo.uuid as uuid, title, idea_url, describe_data, user_id, tag from IdeaInfo;`;\nmsg.session = msg.payload.session;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 470,
+        "y": 380,
+        "wires": [
+            [
+                "b7c8410a.57774"
+            ]
+        ]
+    },
+    {
+        "id": "b7c8410a.57774",
+        "type": "mysql",
+        "z": "81ba743c.489e68",
+        "mydb": "ac384e4a.fef26",
+        "name": "",
+        "x": 700,
+        "y": 380,
+        "wires": [
+            [
+                "aefa3730.882248"
+            ]
+        ]
+    },
+    {
+        "id": "aefa3730.882248",
+        "type": "function",
+        "z": "81ba743c.489e68",
+        "name": "",
+        "func": "msg.ideas = msg.payload;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 910,
+        "y": 360,
+        "wires": [
+            [
+                "46e2c8ae.14b718"
+            ]
+        ]
+    },
+    {
+        "id": "e2a81c89.09b68",
+        "type": "function",
+        "z": "81ba743c.489e68",
+        "name": "",
+        "func": "var no_star = msg.ideas;\nvar star = msg.payload;\n\nfor(var i=0;i<no_star.length;i++) {\n    var flag = false; \n    for(var j=0;j<star.length;j++) {\n        if(star[j].uuid == no_star[i].uuid) {\n            flag = true;\n            break;\n        }\n    }\n    no_star[i].count = 0;\n    if(!flag) {\n        msg.payload.push(no_star[i]); \n    }\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 910,
+        "y": 460,
+        "wires": [
+            [
+                "fde909a2.4932d8"
+            ]
+        ]
+    },
+    {
+        "id": "a56166af.c09778",
+        "type": "debug",
+        "z": "81ba743c.489e68",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 1200,
+        "y": 940,
+        "wires": []
+    },
+    {
+        "id": "ac384e4a.fef26",
+        "type": "MySQLdatabase",
+        "z": "",
+        "host": "localhost",
+        "port": "3306",
+        "db": "db_online_hack_hack",
+        "tz": ""
+    }
+]

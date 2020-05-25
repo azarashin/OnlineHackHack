@@ -1,0 +1,35 @@
+@startuml
+
+package WebBrowser
+{
+    class PlayerRegisterInterface
+    {
+        + SetID(conpass_id, protopedia_id)
+    }
+    class HttpClient
+    {
+
+    }
+    PlayerRegisterInterface <--> HttpClient
+
+}
+
+package AIApplication
+{
+    class HttpServer
+    {
+
+    }
+
+    class PlayerRegister
+    {
+        AddIdPair(conpass_id, protopedia_id)
+
+    }
+    PlayerRegister <--> HttpServer
+
+}
+
+HttpClient <--> HttpServer
+
+@enduml
