@@ -1,0 +1,7 @@
+create database db_online_hack_hack;
+use db_online_hack_hack;
+
+create table IdeaInfo(title text, idea_url text, user_id text, describe_data text, tag text, uuid text, primary key(idea_url(256)));
+create table UserInfo(user_id text, role text, primary key(user_id(256)));
+create table Session(session text, email text, user_name text, last_time datetime, primary key(session(256)));
+create table LikeList(user_id text, uuid text, reg_time datetime);
