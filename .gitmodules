@@ -1,3 +1,0 @@
-[submodule "docker/mount/nodered/projects/OnlineHackHackNodeRed"]
-	path = docker/mount/nodered/projects/OnlineHackHackNodeRed
-	url = https://github.com/azarashin/OnlineHackHackNodeRed.git
