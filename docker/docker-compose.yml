@@ -6,6 +6,7 @@ services:
     container_name: ${CONTAINER_BASE_NAME}_nodered_host
     environment:
       - FLOWS=${NODE_RED_FLOW}.json
+      - NODE_RED_CREDENTIAL_SECRET=${NODE_RED_CREDENTIAL_SECRET}
     restart: always
     ports:
       - "${NODE_RED_PORT}:1880"
