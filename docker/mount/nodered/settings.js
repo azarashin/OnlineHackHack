@@ -65,7 +65,8 @@ module.exports = {
     //debugUseColors: true,
 
     // The file containing the flows. If not set, it defaults to flows_<hostname>.json
-    //flowFile: 'flows.json',
+    // [modified]
+    flowFile: process.env.FLOWS,
 
     // To enabled pretty-printing of the flow within the flow file, set the following
     //  property to true:
@@ -77,7 +78,8 @@ module.exports = {
     // Note: once you set this property, do not change it - doing so will prevent
     // node-red from being able to decrypt your existing credentials and they will be
     // lost.
-    //credentialSecret: "a-secret-key",
+    // [modified]
+    credentialSecret: process.env.NODE_RED_CREDENTIAL_SECRET, 
 
     // By default, all user data is stored in a directory called `.node-red` under
     // the user's home directory. To use a different location, the following
@@ -269,7 +271,7 @@ module.exports = {
     editorTheme: {
         projects: {
             // To enable the Projects feature, set this value to true
-            enabled: true
+            enabled: false
         }
     }
 }
