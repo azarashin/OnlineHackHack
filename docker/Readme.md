@@ -77,7 +77,7 @@ sudo docker exec -it ${CONTAINER_BASE_NAME}_superset superset-init
 
 ### 4.1. NodeRED のmysql ノードからmysql database にアクセスする場合
 
-ノードで設定するホスト名をdb, ポート番号を3306 にしておくこと。
+ノードで設定するホスト名をdb, ポート番号を3306 にしておくこと(MYSQL_PORT ではなく3306 にする)。
 
 ホスト名はlocalhost や127.0.0.1 ではダメ。db というのは、docker-compose.yml に記載したmysql のサービス名であり、docker コンテナをまたいでネットワークアクセスする時にホスト名として使用する。
 
